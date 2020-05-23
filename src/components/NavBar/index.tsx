@@ -7,6 +7,7 @@ import { useLocation } from "react-router";
 // Assets
 import Assets from "../../assets";
 import { Button } from "@material-ui/core";
+import ReportModal from "components/ReportModal";
 const NavBar: React.FC = (props) => {
   const Logo = styled.img`
     width: 88px;
@@ -22,6 +23,8 @@ const NavBar: React.FC = (props) => {
   const CustomButton = styled(Button)`
     background-color: #8adf92 !important;
     color: black;
+    box-shadow: none !important;
+    font-family: "FUTURABold" !important;
   `;
   return (
     <Navbar expand="md" fixed="top" bg="white" className="py-5">
@@ -33,23 +36,17 @@ const NavBar: React.FC = (props) => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ml-auto" activeKey={"/"}>
+          <Nav className="ml-auto" activeKey={"/post"}>
             <Nav.Link
               as={Link}
-              to="/"
+              to="/post"
               eventKey="/"
-              active={location.pathname === "/"}
+              active={location.pathname === "/post"}
             >
               <CustomButton variant="contained">{"Post a link"}</CustomButton>
             </Nav.Link>
-
-            <Nav.Link
-              as={Link}
-              to="/custom"
-              eventKey="custom"
-              active={location.pathname === "/custom"}
-            >
-              <Button variant="outlined">{"Report a link"}</Button>
+            <Nav.Link>
+              <ReportModal />
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
