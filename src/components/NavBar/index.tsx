@@ -27,7 +27,7 @@ const NavBar: React.FC = (props) => {
     font-family: "FUTURABold" !important;
   `;
   return (
-    <Navbar expand="md" fixed="top" bg="white" className="py-5">
+    <Navbar expand="md"  bg="white" className="py-5">
       <Container>
         <Navbar.Brand>
           <Link to="/">

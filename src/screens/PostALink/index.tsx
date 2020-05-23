@@ -90,7 +90,7 @@ const PostALink: React.FC = () => {
   return (
     <div>
       <NavBar />
-      <Container style={{ marginTop: 200 }}>
+      <Container >
         <Title variant="h1">POST A LINK</Title>
         <Description variant="body1">
           I have worked in the Design Industry for the past 12 years. Currently,

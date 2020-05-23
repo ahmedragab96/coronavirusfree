@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Grid, Typography, IconButton } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import CustomMenu from "./CustomMenu";
 
 const CardPost: React.FC = (props) => {
@@ -43,7 +43,14 @@ const CardPost: React.FC = (props) => {
     color: #353535;
     font-family: "FUTURALight" !important;
   `;
-
+  const CustomLink = styled.a`
+    color: #000 !important;
+    text-decoration: none;
+    transition: 1s;
+    &:hover {
+      text-decoration: underline;
+    }
+  `;
   return (
     <Grid item md={4} xs={12}>
       <CardHeader>
@@ -74,8 +81,10 @@ const CardPost: React.FC = (props) => {
       </CardActions>
       <CardBody>
         <LinkTitle variant="h6" className="my-1">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Commodo
-          auctor sed enim, eleifend tristique nec.
+          <CustomLink href="https://momen.studio" target="_blank">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Commodo
+            auctor sed enim, eleifend tristique nec.
+          </CustomLink>
         </LinkTitle>
         <Description variant="body1">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Commodo

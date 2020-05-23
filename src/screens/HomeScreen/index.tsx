@@ -10,7 +10,7 @@ const HomeScreen: React.FC = observer(() => {
   return (
     <div>
       <NavBar />
-      <Container style={{marginTop: 200}}>
+      <Container>
         <Grid container spacing={3}>
           <CardPost />
           <CardPost />
