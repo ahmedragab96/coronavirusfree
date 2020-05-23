@@ -6,7 +6,7 @@ import CardPost from "components/CardPost";
 import Grid from "@material-ui/core/Grid";
 import { Container } from "react-bootstrap";
 
-const HomeScreen: React.FC = observer(() => {
+const PostALink: React.FC = observer(() => {
   return (
     <div>
       <NavBar />
@@ -21,4 +21,4 @@ const HomeScreen: React.FC = observer(() => {
     </div>
   );
 });
-export default HomeScreen;
+export default PostALink;
