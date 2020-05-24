@@ -1,6 +1,10 @@
-import { LinksStore } from "./linksStore";
+import PostsStore from "./postsStore";
 
+export class RootStore {
 
-export const stores = {
-  LinksStore: new LinksStore(),
-};
+  Stores = {
+    postsStore: PostsStore,
+  }
+  
+}
+export default new RootStore();

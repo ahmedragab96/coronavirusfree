@@ -3,7 +3,16 @@ import styled from "styled-components";
 import { Grid, Typography } from "@material-ui/core";
 import CustomMenu from "./CustomMenu";
 
-const CardPost: React.FC = (props) => {
+interface Props {
+  type: string;
+  author: string;
+  date: string;
+  title: string;
+  description: string;
+  link: string;
+}
+
+const CardPost: React.FC<Props> = (props: Props) => {
   const CardHeader = styled.div``;
   const Tag = styled.p`
     display: flex;
@@ -67,28 +76,26 @@ const CardPost: React.FC = (props) => {
               fill="#555555"
             />
           </svg>
-          <Label>Course</Label>
+          <Label>{props.type}</Label>
         </Tag>
         <Sepearator color="#D4C863" />
       </CardHeader>
       <CardActions>
-        <Date>23/10/2019</Date>
+        <Date>{props.date}</Date>
         <div>
-          <Author>Momen</Author>
+          <Author>{props.author}</Author>
 
           <CustomMenu />
         </div>
       </CardActions>
       <CardBody>
         <LinkTitle variant="h6" className="my-1">
-          <CustomLink href="https://momen.studio" target="_blank">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Commodo
-            auctor sed enim, eleifend tristique nec.
+          <CustomLink href={props.link} target="_blank">
+            {props.title}
           </CustomLink>
         </LinkTitle>
         <Description variant="body1">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Commodo
-          auctor sed enim, eleifend tristique nec.
+          {props.description}
         </Description>
       </CardBody>
     </Grid>

@@ -4,11 +4,11 @@ import "./index.css";
 import App from "./screens/App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "mobx-react";
-import { stores } from "stores";
+import RootStore from "stores";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
-  <Provider {...stores}>
+  <Provider {...RootStore.Stores}>
     <App />
   </Provider>,
   document.getElementById("root")
