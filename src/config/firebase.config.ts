@@ -3,7 +3,7 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyAXNn7Nwj4bQjuG0L9MgRQnMX5lptPmId4",
   authDomain: "coronavirusfreeapp.firebaseapp.com",
   databaseURL: "https://coronavirusfreeapp.firebaseio.com",
