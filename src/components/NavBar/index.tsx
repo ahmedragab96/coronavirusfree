@@ -7,32 +7,6 @@ import styled from "styled-components";
 import Assets from "../../assets";
 import { Button, Typography, TextField } from "@material-ui/core";
 import HowToReportModal from "components/HowToReportModal";
-import { withStyles } from "@material-ui/core/styles";
-
-const CssTextField = withStyles({
-  root: {
-    "& label.Mui-focused": {
-      color: "white",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "black",
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "rgba(0,0,0,0)",
-        borderRadius: 0,
-        backgroundColor: "rgba(0,0,0,0.1)",
-      },
-      "&:hover fieldset": {
-        borderColor: "rgba(0,0,0,0)",
-        color: "white",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "rgba(0,0,0,0)",
-      },
-    },
-  },
-})(TextField);
 
 const NavBar: React.FC = () => {
   const Logo = styled.img`
@@ -74,21 +48,6 @@ const NavBar: React.FC = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Container>
-        <Typography
-          style={{ color: "rgba(196, 196, 196, 1)" }}
-          className="my-2"
-        >
-          All resources made free due to penadmic
-        </Typography>
-        <CssTextField
-          id="outlined-basic"
-          placeholder="Search ..."
-          variant="outlined"
-          fullWidth={true}
-          className="mb-3"
-        />
-      </Container>
     </>
   );
 };

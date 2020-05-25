@@ -10,8 +10,43 @@ import SkeletonUIHome from "./SkeletonUI";
 // Store
 import RootStore from "stores";
 import { Post } from "../../stores/postsStore";
+import { Typography, TextField } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 
 const { postsStore } = RootStore.Stores;
+
+const CssTextField = withStyles({
+  root: {
+    "& label.Mui-focused": {
+      color: "white",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "black",
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "rgba(0,0,0,0)",
+        borderRadius: 0,
+        backgroundColor: "rgba(0,0,0,0.1)",
+      },
+      "&:hover fieldset": {
+        borderColor: "rgba(0,0,0,0)",
+        color: "white",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "rgba(0,0,0,0)",
+      },
+    },
+  },
+})(TextField);
+
+const handleSearch = async (query: string) => {
+  console.log(query);
+  if (query.length < 3) {
+    return;
+  }
+  await postsStore.getPosts();
+}
 const HomeScreen: React.FC = () => {
   useEffect(() => {
     const onMount = async () => {
@@ -26,6 +61,22 @@ const HomeScreen: React.FC = () => {
     ) : (
       <div>
         <NavBar />
+        <Container>
+          <Typography
+            style={{ color: "rgba(196, 196, 196, 1)" }}
+            className="my-2"
+          >
+            All resources made free due to penadmic
+          </Typography>
+          <CssTextField
+            id="outlined-basic"
+            placeholder="Search ..."
+            variant="outlined"
+            fullWidth={true}
+            className="mb-3"
+            onChange={(event: any) => handleSearch(event.target.value)}
+          />
+        </Container>
         <Container>
           <Grid container spacing={3}>
             {postsStore.posts.map((post: Post) => {

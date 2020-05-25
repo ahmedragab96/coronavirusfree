@@ -1,5 +1,7 @@
 import { observable, action } from "mobx";
 import firebase from "../config/firebase.config";
+import algoliasearch from 'algoliasearch';
+
 
 export interface Post {
   type: string;
@@ -12,6 +14,14 @@ export interface Post {
   verified?: boolean;
   reported?: boolean;
 }
+
+export interface PostsOptions {
+  query: string; 
+}
+
+// const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_SEARCH_KEY);
+// const index = client.initIndex('notes');
+
 class PostsStore {
   @observable posts: Post[] = [];
   @observable loadingData = false;
@@ -34,6 +44,24 @@ class PostsStore {
       Promise.reject(error);
     }
   }
+
+  // @action
+  // public async filterPosts(query: string): Promise<void> {
+  //   try {
+  //     this.loadingData = true;
+  //     index.search(query)
+  //     .then(function(responses: any) {
+  //       // Response from Algolia:
+  //       // https://www.algolia.com/doc/api-reference/api-methods/search/#response-format
+  //       console.log(responses.hits);
+  //     });
+  //     Promise.resolve();
+  //   } catch (error) {
+  //     Promise.reject(error);
+  //   } finally {
+  //     this.loadingData = false;
+  //   }
+  // }
 
   @action
   public async addPost(newPost: Post): Promise<void> {
