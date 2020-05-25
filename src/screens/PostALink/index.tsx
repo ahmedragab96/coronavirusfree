@@ -153,6 +153,7 @@ const PostALink: React.FC = () => {
               expiryDate: values.expiryDate.getTime(),
               date: new Date().getTime(),
               verified: false,
+              reported: false,
             };
 
             await postsStore.addPost(newPost);

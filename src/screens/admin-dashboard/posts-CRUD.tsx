@@ -3,68 +3,56 @@ import * as React from "react";
 import {
   Datagrid,
   List,
-  Show,
-  Create,
-  Edit,
-  Filter,
-  // DisabledInput,
-  SimpleShowLayout,
-  SimpleForm,
   TextField,
-  TextInput,
-  ShowButton,
-  EditButton,
   DeleteButton,
   RichTextField,
-  SelectInput,
-  FileField,
-  FileInput
+  UrlField,
+  BulkDeleteButton,
+  BooleanField
 } from "react-admin";
+import VerifyPostsButton from "./verifyPosts";
+
+import { Button } from "@material-ui/core";
+import ContentFilter from "@material-ui/icons/FilterList";
+import PostFilterForm from "./posts-filter";
+
+const PostFilterButton = ({ showFilter }: {showFilter : any}) => (
+  <Button
+    size="small"
+    color="primary"
+    onClick={() => showFilter("main")}
+    startIcon={<ContentFilter />}
+  >
+    Filter
+  </Button>
+);
 
 const PostFilter = (props: any) => {
-  return (<Filter {...props}>
-    <TextInput label="Search" source="title" alwaysOn />
-  </Filter>);
+  return props.context === "button" ? (
+    <PostFilterButton {...props} />
+  ) : (
+    <PostFilterForm {...props} />
+  );
 };
 
+const PostBulkActionButtons = (props: any) => (
+  <React.Fragment>
+      <VerifyPostsButton label="Verify Posts" {...props} />
+      {/* default bulk delete action */}
+      <BulkDeleteButton {...props} />
+  </React.Fragment>
+);
+
 export const PostList = (props: any) => (
-  <List {...props} filters={<PostFilter />}>
+  <List {...props} filters={<PostFilter />} bulkActionButtons={<PostBulkActionButtons />}>
     <Datagrid>
       <TextField source="title" />
       <RichTextField source="description" />
+      <UrlField source="link" />
+      <BooleanField source="verified" />
+      <BooleanField source="reported" />
+      {/* <TextField source="verified" /> */}
       <DeleteButton label="" />
     </Datagrid>
   </List>
 );
-
-// export const PostShow = (props: any) => (
-//   <Show {...props}>
-//     <SimpleShowLayout>
-//       <TextField source="id" />
-//       <TextField source="title" />
-//       <RichTextField source="body" />
-//       <FileField source="file.src" title="file.title" />
-//     </SimpleShowLayout>
-//   </Show>
-// );
-
-// export const PostEdit = (props: any) => (
-//   <Edit {...props}>
-//     <SimpleForm>
-//       {/* <DisabledInput source="id" /> */}
-//       <TextInput source="title" />
-//       <RichTextInput source="body" />
-//       <SelectInput
-//         source="rating"
-//         choices={[
-//           { id: 1, name: "Good" },
-//           { id: 2, name: "Okay" },
-//           { id: 3, name: "Bad" }
-//         ]}
-//       />
-//       <FileInput source="file" label="File" accept="application/pdf">
-//         <FileField source="src" title="title" />
-//       </FileInput>
-//     </SimpleForm>
-//   </Edit>
-// );

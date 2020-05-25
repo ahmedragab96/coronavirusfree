@@ -10,6 +10,7 @@ export interface Post {
   description: string;
   link: string;
   verified?: boolean;
+  reported?: boolean;
 }
 class PostsStore {
   @observable posts: Post[] = [];
