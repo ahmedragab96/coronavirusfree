@@ -4,8 +4,8 @@ import firebase from "../config/firebase.config";
 export interface Post {
   type: string;
   author: string;
-  date: string;
-  expiryDate: number;
+  date: number;
+  expiryDate?: number;
   title: string;
   description: string;
   link: string;

@@ -29,7 +29,7 @@ const HomeScreen: React.FC = () => {
         <Container>
           <Grid container spacing={3}>
             {postsStore.posts.map((post: Post) => {
-              const postDate = new Date(Number(post.date))
+              const postDate = new Date(post.date)
                 .toISOString()
                 .split("T")[0]
                 .replace(/-/g, "/");

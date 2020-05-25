@@ -8,7 +8,7 @@ interface Props {
   type: string;
   author: string;
   date: string;
-  expiryDate: number;
+  expiryDate?: number;
   title: string;
   description: string;
   link: string;

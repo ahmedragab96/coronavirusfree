@@ -6,10 +6,19 @@ import { Typography, Button, MenuItem } from "@material-ui/core";
 
 import { withStyles } from "@material-ui/core/styles";
 import { Formik, Form, Field, FormikHelpers } from "formik";
+import {
+  useHistory,
+} from 'react-router';
 
 import { TextField } from "@material-ui/core";
 
 import * as emailjs from "emailjs-com";
+import RootStore from "stores";
+import { Post } from "stores/postsStore";
+
+const {
+  postsStore,
+} = RootStore.Stores;
 
 const Title = styled(Typography)`
   font-family: "FUTURABook" !important;
@@ -80,16 +89,39 @@ const CustomButton = withStyles({
     },
   },
 })(Button);
-interface IFormValues {
+
+interface Category {
+  value: string;
   name: string;
-  url: string;
-  category: string;
+}
+
+const categories: Category[] = [
+  {
+    value: 'Course',
+    name: 'Course',
+  },
+  {
+    value: 'Video',
+    name: 'Video',
+  },
+  {
+    value: 'Article',
+    name: 'Article',
+  }
+];
+interface IFormValues {
+  author: string;
+  link: string;
+  type: string;
   expiryDate: Date;
+  title: string;
   description: string;
 }
 
 const PostALink: React.FC = () => {
   const [emailSent, setEmailSent] = useState(false);
+
+  const history = useHistory();
 
   return (
     <div>
@@ -103,41 +135,28 @@ const PostALink: React.FC = () => {
         </Description>
         <Formik
           initialValues={{
-            name: "",
-            url: "",
-            category: "",
+            author: "",
+            link: "",
+            type: "Course",
             expiryDate: new Date(),
             description: "",
+            title: ""
           }}
-          onSubmit={(
+          onSubmit={async (
             values: IFormValues,
             actions: FormikHelpers<IFormValues>
           ) => {
-            actions.setSubmitting(true);
+            // actions.setSubmitting(true);
             console.log(values);
-            // setTimeout(() => {
-            //   emailjs
-            //     .send(
-            //       "gmail", // Email service as defined in EmailJS setting
-            //       "template_fQRMbBug", // Email template ID provided by EmailJS
-            //       {
-            //         from_name: values.name,
-            //         to_name: "momenheshamzaza@gmail.com",
-            //         reply_to: values.name,
-            //         message_html: values.description,
-            //       },
-            //       "user_PTCm89pSOkpRGXWRjnRuB" // EmailJS user ID
-            //     )
-            //     .then(() => {
-            //       setEmailSent(true);
-            //       actions.setSubmitting(false);
-            //       actions.resetForm();
-            //     })
-            //     .catch(() => {
-            //       actions.setSubmitting(false);
-            //       alert("Error sending email...");
-            //     });
-            // }, 1000);
+            const newPost: Post = {
+              ...values,
+              expiryDate: values.expiryDate.getTime(),
+              date: new Date().getTime(),
+              verified: false,
+            };
+
+            await postsStore.addPost(newPost);
+            history.push('/');
           }}
           render={(formikBag) => (
             <Form style={{ width: "100%" }}>
@@ -146,8 +165,9 @@ const PostALink: React.FC = () => {
                 margin="normal"
                 variant="outlined"
                 fullWidth={true}
-                name="name"
-                label="Name"
+                name="author"
+                label="Author Name"
+                key="author"
               />
               <Field
                 component={CssTextField}
@@ -155,22 +175,31 @@ const PostALink: React.FC = () => {
                 variant="outlined"
                 fullWidth={true}
                 name="url"
-                label="Url"
+                label="Link"
                 required
+                key="url"
               />
               <Field
-                name="category"
+                name="type"
                 component={CssTextField}
-                placeholder="Category"
-                required={true}
-                select={true}
+                required
+                select
                 fullWidth={true}
                 variant="outlined"
+                key="type"
               >
-                <MenuItem value="">Please go and typefaces first!</MenuItem>
-                <MenuItem key="noitems" value="noitems" disabled={true}>
-                  Please go and typefaces first!
-                </MenuItem>
+                {
+                  categories.map((category: Category) => {
+                    return (
+                      <MenuItem
+                        value={category.value}
+                        key={category.value}
+                      >
+                        {category.name}
+                      </MenuItem>
+                    );
+                  })
+                }
               </Field>
               <Field
                 id="date"
@@ -185,6 +214,17 @@ const PostALink: React.FC = () => {
                   shrink: true,
                 }}
                 component={CssTextField}
+                key="expiryDate"
+              />
+              <Field
+                component={CssTextField}
+                margin="normal"
+                variant="outlined"
+                fullWidth={true}
+                name="title"
+                label="Link Title"
+                required
+                key="title"
               />
               <Field
                 component={CssTextField}
@@ -192,11 +232,12 @@ const PostALink: React.FC = () => {
                 variant="outlined"
                 fullWidth={true}
                 name="description"
-                placeholder="Description ..."
+                placeholder="Link Description ..."
                 rows="8"
                 multiline={true}
                 size="medium"
                 required
+                key="description"
               />
               <CustomButton variant="contained" fullWidth={true} type="submit">
                 send
