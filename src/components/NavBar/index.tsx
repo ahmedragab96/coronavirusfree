@@ -1,14 +1,40 @@
 // Packages
 import React from "react";
 import { Link } from "react-router-dom";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav, Container, Row } from "react-bootstrap";
 import styled from "styled-components";
-import { useLocation } from "react-router";
 // Assets
 import Assets from "../../assets";
-import { Button } from "@material-ui/core";
-import ReportModal from "components/ReportModal";
-const NavBar: React.FC = (props) => {
+import { Button, Typography, TextField } from "@material-ui/core";
+import HowToReportModal from "components/HowToReportModal";
+import { withStyles } from "@material-ui/core/styles";
+
+const CssTextField = withStyles({
+  root: {
+    "& label.Mui-focused": {
+      color: "white",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "black",
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "rgba(0,0,0,0)",
+        borderRadius: 0,
+        backgroundColor: "rgba(0,0,0,0.1)",
+      },
+      "&:hover fieldset": {
+        borderColor: "rgba(0,0,0,0)",
+        color: "white",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "rgba(0,0,0,0)",
+      },
+    },
+  },
+})(TextField);
+
+const NavBar: React.FC = () => {
   const Logo = styled.img`
     width: 88px;
   `;
@@ -19,39 +45,51 @@ const NavBar: React.FC = (props) => {
       text-decoration: none;
     }
   `;
-  let location = useLocation();
   const CustomButton = styled(Button)`
     background-color: #8adf92 !important;
     color: black;
     box-shadow: none !important;
     font-family: "FUTURABold" !important;
   `;
+
   return (
-    <Navbar expand="md"  bg="white" className="py-5">
+    <>
+      <Navbar expand="md" bg="white" className="py-4">
+        <Container>
+          <Navbar.Brand>
+            <Link to="/">
+              <Logo src={Assets.Images.logo} alt="Logo" />
+            </Link>
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="ml-auto" activeKey={"/post"}>
+              <Nav.Link as={Link} to="/post" eventKey="/">
+                <CustomButton variant="contained">{"Post a link"}</CustomButton>
+              </Nav.Link>
+              <Nav.Link>
+                <HowToReportModal />
+              </Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
       <Container>
-        <Navbar.Brand>
-          <Link to="/">
-            <Logo src={Assets.Images.logo} alt="Logo" />
-          </Link>
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ml-auto" activeKey={"/post"}>
-            <Nav.Link
-              as={Link}
-              to="/post"
-              eventKey="/"
-              active={location.pathname === "/post"}
-            >
-              <CustomButton variant="contained">{"Post a link"}</CustomButton>
-            </Nav.Link>
-            <Nav.Link>
-              <ReportModal />
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
+        <Typography
+          style={{ color: "rgba(196, 196, 196, 1)" }}
+          className="my-2"
+        >
+          All resources made free due to penadmic
+        </Typography>
+        <CssTextField
+          id="outlined-basic"
+          placeholder="Search ..."
+          variant="outlined"
+          fullWidth={true}
+          className="mb-3"
+        />
       </Container>
-    </Navbar>
+    </>
   );
 };
 

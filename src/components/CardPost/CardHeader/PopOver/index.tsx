@@ -14,8 +14,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+interface Props {
+  expiryDate: number;
+}
 
-export default function SepearatorPopOver() {
+const SepearatorPopOver: React.FC<Props> = (props: Props) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
@@ -65,8 +68,9 @@ export default function SepearatorPopOver() {
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <Typography>This will expire in 7 days</Typography>
+        <Typography>This will expire in { props.expiryDate } days</Typography>
       </Popover>
     </div>
   );
-}
+};
+export default SepearatorPopOver;

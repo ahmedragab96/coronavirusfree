@@ -1,10 +1,13 @@
+// Packages
 import React, { useEffect } from "react";
-import classes from "./styles.module.scss";
 import { useObserver } from "mobx-react";
+import { Container } from "react-bootstrap";
+import Grid from "@material-ui/core/Grid";
+// Components
 import NavBar from "components/NavBar";
 import CardPost from "components/CardPost";
-import Grid from "@material-ui/core/Grid";
-import { Container } from "react-bootstrap";
+import SkeletonUIHome from "./SkeletonUI";
+// Store
 import RootStore from "stores";
 import { Post } from "../../stores/postsStore";
 
@@ -18,7 +21,9 @@ const HomeScreen: React.FC = () => {
   }, []);
 
   return useObserver(() =>
-    postsStore.loadingData ? null : (
+    postsStore.loadingData ? (
+      <SkeletonUIHome />
+    ) : (
       <div>
         <NavBar />
         <Container>
@@ -36,6 +41,7 @@ const HomeScreen: React.FC = () => {
                   link={post.link}
                   author={post.author}
                   date={postDate}
+                  expiryDate={post.expiryDate}
                 />
               );
             })}

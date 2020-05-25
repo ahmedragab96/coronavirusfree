@@ -3,8 +3,9 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import { Button } from "@material-ui/core";
-
+import { Button, Divider, Typography } from "@material-ui/core";
+import CheckListComponent from "./CheckList";
+import styled from "styled-components";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     modal: {
@@ -14,14 +15,21 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper: {
       backgroundColor: theme.palette.background.paper,
-      border: "2px solid #000",
       boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
+      padding: theme.spacing(8, 32, 8, 8),
     },
   })
 );
 
-export default function ReportModal() {
+const Title = styled(Typography)`
+  font-family: "FUTURABold" !important;
+  font-weight: bold !important;
+`;
+const Description = styled(Typography)`
+  font-family: "FUTURALight" !important;
+`;
+
+const ReportLinkModal: React.FC = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -32,11 +40,13 @@ export default function ReportModal() {
   const handleClose = () => {
     setOpen(false);
   };
-
+  const onSelect = (selected: string) => {
+    console.log("selected", selected);
+  };
   return (
     <div>
       <Button variant="text" onClick={handleOpen}>
-        Report link?
+        Report link
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -52,13 +62,19 @@ export default function ReportModal() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 id="transition-modal-title">Transition modal</h2>
-            <p id="transition-modal-description">
-              react-transition-group animates me.
-            </p>
+            <Title id="transition-modal-title" variant="h2">
+              REPORT A LINK
+            </Title>
+            <Description id="transition-modal-description">
+              Select why you want report this link?
+            </Description>
+            <Divider className="my-3" />
+            <CheckListComponent />
           </div>
         </Fade>
       </Modal>
     </div>
   );
-}
+};
+
+export default ReportLinkModal;

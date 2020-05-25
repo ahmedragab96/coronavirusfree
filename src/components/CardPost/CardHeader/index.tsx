@@ -4,6 +4,7 @@ import SepearatorPopOver from "./PopOver";
 
 interface Props {
   type: string;
+  expiryDate: number;
 }
 
 const CardHeaderComponent: React.FC<Props> = (props: Props) => {
@@ -35,7 +36,7 @@ const CardHeaderComponent: React.FC<Props> = (props: Props) => {
         </svg>
         <Label>{props.type}</Label>
       </Tag>
-      <SepearatorPopOver />
+      <SepearatorPopOver expiryDate={props.expiryDate} />
     </CardHeader>
   );
 };

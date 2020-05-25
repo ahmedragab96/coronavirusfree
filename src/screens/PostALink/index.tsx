@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import NavBar from "components/NavBar";
-import { Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import styled from "styled-components";
 import { Typography, Button, MenuItem } from "@material-ui/core";
 
 import { withStyles } from "@material-ui/core/styles";
 import { Formik, Form, Field, FormikHelpers } from "formik";
-import { TextField } from "formik-material-ui";
+
+import { TextField } from "@material-ui/core";
+
 import * as emailjs from "emailjs-com";
 
 const Title = styled(Typography)`
@@ -79,9 +81,11 @@ const CustomButton = withStyles({
   },
 })(Button);
 interface IFormValues {
-  firstName: string;
-  email: string;
-  message: string;
+  name: string;
+  url: string;
+  category: string;
+  expiryDate: Date;
+  description: string;
 }
 
 const PostALink: React.FC = () => {
@@ -98,35 +102,42 @@ const PostALink: React.FC = () => {
           simple experience and shaping a product for more than 4 million users.
         </Description>
         <Formik
-          initialValues={{ firstName: "", email: "", message: "" }}
+          initialValues={{
+            name: "",
+            url: "",
+            category: "",
+            expiryDate: new Date(),
+            description: "",
+          }}
           onSubmit={(
             values: IFormValues,
             actions: FormikHelpers<IFormValues>
           ) => {
             actions.setSubmitting(true);
-            setTimeout(() => {
-              emailjs
-                .send(
-                  "gmail", // Email service as defined in EmailJS setting
-                  "template_fQRMbBug", // Email template ID provided by EmailJS
-                  {
-                    from_name: values.firstName,
-                    to_name: "momenheshamzaza@gmail.com",
-                    reply_to: values.email,
-                    message_html: values.message,
-                  },
-                  "user_PTCm89pSOkpRGXWRjnRuB" // EmailJS user ID
-                )
-                .then(() => {
-                  setEmailSent(true);
-                  actions.setSubmitting(false);
-                  actions.resetForm();
-                })
-                .catch(() => {
-                  actions.setSubmitting(false);
-                  alert("Error sending email...");
-                });
-            }, 1000);
+            console.log(values);
+            // setTimeout(() => {
+            //   emailjs
+            //     .send(
+            //       "gmail", // Email service as defined in EmailJS setting
+            //       "template_fQRMbBug", // Email template ID provided by EmailJS
+            //       {
+            //         from_name: values.name,
+            //         to_name: "momenheshamzaza@gmail.com",
+            //         reply_to: values.name,
+            //         message_html: values.description,
+            //       },
+            //       "user_PTCm89pSOkpRGXWRjnRuB" // EmailJS user ID
+            //     )
+            //     .then(() => {
+            //       setEmailSent(true);
+            //       actions.setSubmitting(false);
+            //       actions.resetForm();
+            //     })
+            //     .catch(() => {
+            //       actions.setSubmitting(false);
+            //       alert("Error sending email...");
+            //     });
+            // }, 1000);
           }}
           render={(formikBag) => (
             <Form style={{ width: "100%" }}>
@@ -135,8 +146,7 @@ const PostALink: React.FC = () => {
                 margin="normal"
                 variant="outlined"
                 fullWidth={true}
-                name="firstName"
-                type="email"
+                name="name"
                 label="Name"
               />
               <Field
@@ -144,14 +154,13 @@ const PostALink: React.FC = () => {
                 margin="normal"
                 variant="outlined"
                 fullWidth={true}
-                name="email"
-                type="email"
-                label="Email"
+                name="url"
+                label="Url"
+                required
               />
               <Field
                 name="category"
                 component={CssTextField}
-                type="text"
                 placeholder="Category"
                 required={true}
                 select={true}
@@ -159,19 +168,35 @@ const PostALink: React.FC = () => {
                 variant="outlined"
               >
                 <MenuItem value="">Please go and typefaces first!</MenuItem>
-
                 <MenuItem key="noitems" value="noitems" disabled={true}>
                   Please go and typefaces first!
                 </MenuItem>
               </Field>
               <Field
+                id="date"
+                label="Expiry Date"
+                margin="normal"
+                variant="outlined"
+                name="expiryDate"
+                type="date"
+                fullWidth={true}
+                defaultValue="2017-05-24"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                component={CssTextField}
+              />
+              <Field
                 component={CssTextField}
                 margin="normal"
                 variant="outlined"
                 fullWidth={true}
-                name="message"
-                type="textarea"
-                label="message"
+                name="description"
+                placeholder="Description ..."
+                rows="8"
+                multiline={true}
+                size="medium"
+                required
               />
               <CustomButton variant="contained" fullWidth={true} type="submit">
                 send

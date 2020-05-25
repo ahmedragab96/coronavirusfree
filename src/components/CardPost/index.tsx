@@ -8,6 +8,7 @@ interface Props {
   type: string;
   author: string;
   date: string;
+  expiryDate: number;
   title: string;
   description: string;
   link: string;
@@ -16,7 +17,7 @@ interface Props {
 const CardPost: React.FC<Props> = (props: Props) => {
   return (
     <Grid item md={4} xs={12}>
-      <CardHeaderComponent type={props.type} />
+      <CardHeaderComponent type={props.type} expiryDate={props.expiryDate} />
       <CardActionsComponent date={props.date} author={props.author} />
       <CardBodyComponent
         link={props.link}

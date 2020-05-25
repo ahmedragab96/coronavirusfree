@@ -1,5 +1,6 @@
 import React from "react";
 import { Menu, MenuItem, IconButton } from "@material-ui/core";
+import ReportLinkModal from "../ReportLinkModal";
 
 const CustomMenu: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -39,7 +40,9 @@ const CustomMenu: React.FC = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Report Link</MenuItem>
+        <MenuItem onClick={handleClose}>
+          <ReportLinkModal />
+        </MenuItem>
       </Menu>
     </>
   );
