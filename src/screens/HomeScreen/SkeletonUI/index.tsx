@@ -88,6 +88,94 @@ const SkeletonUIHome: React.FC = () => {
             className="my-2"
           />
         </Grid>
+        <Grid item md={4} xs={12}>
+          <Skeleton
+            variant="rect"
+            width={100}
+            height={20}
+            animation="wave"
+            className="my-2"
+          />
+          <Skeleton variant="rect" width={150} height={10} animation="wave" />
+          <Skeleton
+            variant="rect"
+            height={20}
+            animation="wave"
+            className="my-2"
+          />
+          <Skeleton
+            variant="rect"
+            height={40}
+            animation="wave"
+            className="my-2"
+          />
+        </Grid>
+        <Grid item md={4} xs={12}>
+          <Skeleton
+            variant="rect"
+            width={100}
+            height={20}
+            animation="wave"
+            className="my-2"
+          />
+          <Skeleton variant="rect" width={150} height={10} animation="wave" />
+          <Skeleton
+            variant="rect"
+            height={20}
+            animation="wave"
+            className="my-2"
+          />
+          <Skeleton
+            variant="rect"
+            height={40}
+            animation="wave"
+            className="my-2"
+          />
+        </Grid>
+        <Grid item md={4} xs={12}>
+          <Skeleton
+            variant="rect"
+            width={100}
+            height={20}
+            animation="wave"
+            className="my-2"
+          />
+          <Skeleton variant="rect" width={150} height={10} animation="wave" />
+          <Skeleton
+            variant="rect"
+            height={20}
+            animation="wave"
+            className="my-2"
+          />
+          <Skeleton
+            variant="rect"
+            height={40}
+            animation="wave"
+            className="my-2"
+          />
+        </Grid>
+        <Grid item md={4} xs={12}>
+          <Skeleton
+            variant="rect"
+            width={100}
+            height={20}
+            animation="wave"
+            className="my-2"
+          />
+          <Skeleton variant="rect" width={150} height={10} animation="wave" />
+          <Skeleton
+            variant="rect"
+            height={20}
+            animation="wave"
+            className="my-2"
+          />
+          <Skeleton
+            variant="rect"
+            height={40}
+            animation="wave"
+            className="my-2"
+          />
+        </Grid>
       </Grid>
     </Container>
   );
