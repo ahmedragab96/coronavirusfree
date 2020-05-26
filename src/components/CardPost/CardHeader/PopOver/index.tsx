@@ -38,6 +38,15 @@ const SepearatorPopOver: React.FC<Props> = (props: Props) => {
     height: 6px;
     background-color: #d4c863;
   `;
+
+  const getExpiryPeriod = () => {
+    const oneDay = 1000 * 60 * 60 * 24;
+    const now = new Date().getTime();
+
+    let period = Math.round(now - props.expiryDate) / oneDay;
+
+    return period.toFixed(0);
+  }
   return (
     <div>
       <div
@@ -68,7 +77,7 @@ const SepearatorPopOver: React.FC<Props> = (props: Props) => {
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <Typography>This will expire in { props.expiryDate } days</Typography>
+        <Typography>This will expire in { getExpiryPeriod() } days</Typography>
       </Popover>
     </div>
   );

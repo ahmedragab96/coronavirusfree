@@ -141,7 +141,7 @@ const PostALink: React.FC = () => {
             // actions.setSubmitting(true);
             const newPost: Post = {
               ...values,
-              expiryDate: values.expiryDate.getTime(),
+              expiryDate: new Date(values.expiryDate).getTime(),
               date: new Date().getTime(),
               verified: false,
               reported: false,

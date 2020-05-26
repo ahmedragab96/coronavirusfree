@@ -4,8 +4,8 @@ import * as admin from 'firebase-admin';
 import algoliasearch from 'algoliasearch';
 admin.initializeApp(functions.config().firebase);
 
-const ALGOLIA_ID = functions.config().algolia.app_id;
-const ALGOLIA_ADMIN_KEY = functions.config().algolia.api_key;
+const ALGOLIA_ID = '4K22Y5Q58Z';
+const ALGOLIA_ADMIN_KEY = 'e6d3931afbe045df43ecbef8f0f5976e';
 
 const ALGOLIA_INDEX_NAME = 'posts';
 const client = algoliasearch(ALGOLIA_ID, ALGOLIA_ADMIN_KEY);

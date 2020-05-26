@@ -8,8 +8,19 @@
     "strict": true,
     "target": "es2017"
   },
+  // "typeRoots": ["./node_modules/@types/"],
   "compileOnSave": true,
   "include": [
-    "src"
-  ]
+    "src/**/*.ts"
+  ],
+  "files": [
+    "node_modules/typescript/lib/lib.es6.d.ts"
+  ],
+  "exclude": [
+      "node_modules"
+  ],
+  "typeRoots": [
+    "./functions/node_modules/@types"
+  ],
+  "skipLibCheck": true
 }

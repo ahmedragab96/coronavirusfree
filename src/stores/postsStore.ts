@@ -19,8 +19,12 @@ export interface PostsOptions {
   query: string; 
 }
 
-// const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_SEARCH_KEY);
-// const index = client.initIndex('notes');
+
+const client = algoliasearch(
+  (process.env.REACT_APP_ALGOLIA_APP_ID as string),
+  (process.env.REACT_APP_ALGOLIA_SEARCH_KEY as string)
+);
+const index = client.initIndex('posts');
 
 class PostsStore {
   @observable posts: Post[] = [];
@@ -45,23 +49,23 @@ class PostsStore {
     }
   }
 
-  // @action
-  // public async filterPosts(query: string): Promise<void> {
-  //   try {
-  //     this.loadingData = true;
-  //     index.search(query)
-  //     .then(function(responses: any) {
-  //       // Response from Algolia:
-  //       // https://www.algolia.com/doc/api-reference/api-methods/search/#response-format
-  //       console.log(responses.hits);
-  //     });
-  //     Promise.resolve();
-  //   } catch (error) {
-  //     Promise.reject(error);
-  //   } finally {
-  //     this.loadingData = false;
-  //   }
-  // }
+  @action
+  public async filterPosts(query: string): Promise<void> {
+    try {
+      this.loadingData = true;
+      index.search(query)
+      .then(function(responses: any) {
+        // Response from Algolia:
+        // https://www.algolia.com/doc/api-reference/api-methods/search/#response-format
+        console.log(responses.hits);
+      });
+      Promise.resolve();
+    } catch (error) {
+      Promise.reject(error);
+    } finally {
+      this.loadingData = false;
+    }
+  }
 
   @action
   public async addPost(newPost: Post): Promise<void> {
