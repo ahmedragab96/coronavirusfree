@@ -82,7 +82,7 @@ const PostSent: React.FC = () => {
           <Description variant="body1">
             select why you want report this link?
           </Description>
-          <CustomButton target="_blank" href="https://momen.studio">
+          <CustomButton target="_blank" href="https://www.buymeacoffee.com/momenhesham">
             Donate 5$
           </CustomButton>
         </CustomContainer>
@@ -98,7 +98,7 @@ const PostSent: React.FC = () => {
           <Description variant="body1">
             select why you want report this link?
           </Description>
-          <TryAgain to="post" href="https://momen.studio">
+          <TryAgain to="/post">
             Try Again
           </TryAgain>
         </CustomContainer>
