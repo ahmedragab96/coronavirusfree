@@ -113,7 +113,6 @@ interface IFormValues {
 }
 
 const PostALink: React.FC = () => {
-
   const history = useHistory();
 
   return (
@@ -140,7 +139,6 @@ const PostALink: React.FC = () => {
             actions: FormikHelpers<IFormValues>
           ) => {
             // actions.setSubmitting(true);
-            console.log(values);
             const newPost: Post = {
               ...values,
               expiryDate: values.expiryDate.getTime(),
@@ -148,12 +146,14 @@ const PostALink: React.FC = () => {
               verified: false,
               reported: false,
             };
-
             await postsStore.addPost(newPost);
-            history.push("/");
+            history.push({
+              pathname: "/sent",
+              state: "202",
+            });
           }}
           render={(formikBag) => (
-            <Form style={{ width: "100%" }}>
+            <Form style={{ width: "100%", marginBottom: "40px"}}>
               <Field
                 component={CssTextField}
                 margin="normal"

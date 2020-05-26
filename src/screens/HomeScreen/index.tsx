@@ -46,7 +46,7 @@ const handleSearch = async (query: string) => {
     return;
   }
   await postsStore.getPosts();
-}
+};
 const HomeScreen: React.FC = () => {
   useEffect(() => {
     const onMount = async () => {
@@ -54,7 +54,6 @@ const HomeScreen: React.FC = () => {
     };
     onMount();
   }, []);
-
   return useObserver(() =>
     postsStore.loadingData ? (
       <SkeletonUIHome />
