@@ -14,6 +14,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+
+const Sepearator = styled.div`
+    width: 60%;
+    height: 6px;
+    background-color: #d4c863;
+`;
+
 interface Props {
   expiryDate: number;
 }
@@ -33,11 +40,6 @@ const SepearatorPopOver: React.FC<Props> = (props: Props) => {
   };
 
   const open = Boolean(anchorEl);
-  const Sepearator = styled.div`
-    width: 60%;
-    height: 6px;
-    background-color: #d4c863;
-  `;
 
   const getExpiryPeriod = () => {
     const oneDay = 1000 * 60 * 60 * 24;

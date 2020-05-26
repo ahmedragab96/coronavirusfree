@@ -47,7 +47,7 @@ const FourOFour: React.FC = () => {
     <>
       <NavBar />
       <CustomContainer>
-        <img src={Assets.Images.staySafe} width="300" />
+        <img src={Assets.Images.staySafe} width="300" alt=''/>
         <Title variant="h3">Oops .. Stay Safe at home</Title>
         <Description variant="body1">
           select why you want report this link?

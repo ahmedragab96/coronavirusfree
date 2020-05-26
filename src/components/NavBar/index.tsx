@@ -1,30 +1,31 @@
 // Packages
 import React from "react";
 import { Link } from "react-router-dom";
-import { Navbar, Nav, Container, Row } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import styled from "styled-components";
 // Assets
 import Assets from "../../assets";
-import { Button, Typography, TextField } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import HowToReportModal from "components/HowToReportModal";
 
+const Logo = styled.img`
+width: 88px;
+`;
+const LinkStyled = styled(Link)`
+color: black !important;
+&:hover {
+  color: black !important;
+  text-decoration: none;
+}
+`;
+const CustomButton = styled(Button)`
+background-color: #8adf92 !important;
+color: black;
+box-shadow: none !important;
+font-family: "FUTURABold" !important;
+`;
+
 const NavBar: React.FC = () => {
-  const Logo = styled.img`
-    width: 88px;
-  `;
-  const LinkStyled = styled(Link)`
-    color: black !important;
-    &:hover {
-      color: black !important;
-      text-decoration: none;
-    }
-  `;
-  const CustomButton = styled(Button)`
-    background-color: #8adf92 !important;
-    color: black;
-    box-shadow: none !important;
-    font-family: "FUTURABold" !important;
-  `;
 
   return (
     <>

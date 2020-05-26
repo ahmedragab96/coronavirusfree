@@ -7,17 +7,18 @@ interface Props {
   expiryDate?: number;
 }
 
+const CardHeader = styled.div``;
+const Tag = styled.p`
+  display: flex;
+  align-items: center;
+`;
+const Label = styled.span`
+  color: #555555;
+  margin-left: 10px;
+  font-family: "FUTURALight" !important;
+`;
+
 const CardHeaderComponent: React.FC<Props> = (props: Props) => {
-  const CardHeader = styled.div``;
-  const Tag = styled.p`
-    display: flex;
-    align-items: center;
-  `;
-  const Label = styled.span`
-    color: #555555;
-    margin-left: 10px;
-    font-family: "FUTURALight" !important;
-  `;
 
   return (
     <CardHeader>

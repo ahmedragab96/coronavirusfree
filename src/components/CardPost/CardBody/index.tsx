@@ -8,24 +8,25 @@ interface Props {
   link: string;
 }
 
-const CardBodyComponent: React.FC<Props> = (props: Props) => {
-  const CardBody = styled.div``;
-  const LinkTitle = styled(Typography)`
-    font-family: "Freight" !important;
-  `;
+const CardBody = styled.div``;
+const LinkTitle = styled(Typography)`
+  font-family: "Freight" !important;
+`;
 
-  const Description = styled(Typography)`
-    color: #353535;
-    font-family: "FUTURALight" !important;
-  `;
-  const CustomLink = styled.a`
-    color: #000 !important;
-    text-decoration: none;
-    transition: 1s;
-    &:hover {
-      text-decoration: underline;
-    }
-  `;
+const Description = styled(Typography)`
+  color: #353535;
+  font-family: "FUTURALight" !important;
+`;
+const CustomLink = styled.a`
+  color: #000 !important;
+  text-decoration: none;
+  transition: 1s;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const CardBodyComponent: React.FC<Props> = (props: Props) => {
   return (
     <CardBody>
       <LinkTitle variant="h6" className="my-1">
