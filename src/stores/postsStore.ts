@@ -1,6 +1,6 @@
 import { observable, action } from "mobx";
 import firebase from "../config/firebase.config";
-import algoliasearch from 'algoliasearch';
+// import algoliasearch from 'algoliasearch';
 
 
 export interface Post {
@@ -20,24 +20,29 @@ export interface PostsOptions {
 }
 
 
-const client = algoliasearch(
-  (process.env.REACT_APP_ALGOLIA_APP_ID as string),
-  (process.env.REACT_APP_ALGOLIA_SEARCH_KEY as string)
-);
-const index = client.initIndex('posts');
+// const client = algoliasearch(
+//   (process.env.REACT_APP_ALGOLIA_APP_ID as string),
+//   (process.env.REACT_APP_ALGOLIA_SEARCH_KEY as string)
+// );
+// const index = client.initIndex('posts');
 
 class PostsStore {
   @observable posts: Post[] = [];
   @observable loadingData = false;
 
   @action
-  public async getPosts(): Promise<void> {
+  public async getPosts(getPostsOptions?: PostsOptions): Promise<void> {
     try {
       this.loadingData = true;
       const db = firebase.firestore();
-      db.collection("posts")
-        .where("verified", "==", true)
-        .onSnapshot((snapShot) => {
+      let dbQuery = db.collection("posts")
+        .where("verified", "==", true);
+
+        if (getPostsOptions && getPostsOptions.query) {
+          dbQuery = dbQuery.orderBy('title').startAt(getPostsOptions.query).endAt(getPostsOptions.query + '\uf8ff');
+        }
+
+        dbQuery.onSnapshot((snapShot) => {
           this.posts = snapShot.docs.map((doc: any) => {
             return doc.data();
           });
@@ -48,25 +53,7 @@ class PostsStore {
       Promise.reject(error);
     }
   }
-
-  @action
-  public async filterPosts(query: string): Promise<void> {
-    try {
-      this.loadingData = true;
-      index.search(query)
-      .then(function(responses: any) {
-        // Response from Algolia:
-        // https://www.algolia.com/doc/api-reference/api-methods/search/#response-format
-        console.log(responses.hits);
-      });
-      Promise.resolve();
-    } catch (error) {
-      Promise.reject(error);
-    } finally {
-      this.loadingData = false;
-    }
-  }
-
+  
   @action
   public async addPost(newPost: Post): Promise<void> {
     try {

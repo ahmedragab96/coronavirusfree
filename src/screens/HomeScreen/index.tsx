@@ -1,5 +1,5 @@
 // Packages
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useObserver } from "mobx-react";
 import { Container } from "react-bootstrap";
 import Grid from "@material-ui/core/Grid";
@@ -40,14 +40,18 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const handleSearch = async (query: string) => {
-  console.log(query);
-  if (query.length < 3) {
-    return;
-  }
-  await postsStore.getPosts();
-};
 const HomeScreen: React.FC = () => {
+
+  const [searchText, setSearchText] = useState('');
+
+  const handleSearch = async (query: string) => {
+    if (query.length < 3) {
+      await postsStore.getPosts();
+      return;
+    }
+    await postsStore.getPosts({query});
+  };
+
   useEffect(() => {
     const onMount = async () => {
       await postsStore.getPosts();
@@ -73,7 +77,13 @@ const HomeScreen: React.FC = () => {
             variant="outlined"
             fullWidth={true}
             className="mb-3"
-            onChange={(event: any) => handleSearch(event.target.value)}
+            value={searchText}
+            onChange={(event: any) => setSearchText(event.target.value)}
+            onKeyPress={(event: any) => {
+              if (event.key === 'Enter') {
+                handleSearch(searchText);
+              }
+            }}
           />
         </Container>
         <Container>
