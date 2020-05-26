@@ -6,19 +6,13 @@ import { Typography, Button, MenuItem } from "@material-ui/core";
 
 import { withStyles } from "@material-ui/core/styles";
 import { Formik, Form, Field, FormikHelpers } from "formik";
-import {
-  useHistory,
-} from 'react-router';
+import { useHistory } from "react-router";
+import { TextField } from "formik-material-ui";
 
-import { TextField } from "@material-ui/core";
-
-import * as emailjs from "emailjs-com";
 import RootStore from "stores";
 import { Post } from "stores/postsStore";
 
-const {
-  postsStore,
-} = RootStore.Stores;
+const { postsStore } = RootStore.Stores;
 
 const Title = styled(Typography)`
   font-family: "FUTURABook" !important;
@@ -97,17 +91,17 @@ interface Category {
 
 const categories: Category[] = [
   {
-    value: 'Course',
-    name: 'Course',
+    value: "Course",
+    name: "Course",
   },
   {
-    value: 'Video',
-    name: 'Video',
+    value: "Video",
+    name: "Video",
   },
   {
-    value: 'Article',
-    name: 'Article',
-  }
+    value: "Article",
+    name: "Article",
+  },
 ];
 interface IFormValues {
   author: string;
@@ -119,7 +113,6 @@ interface IFormValues {
 }
 
 const PostALink: React.FC = () => {
-  const [emailSent, setEmailSent] = useState(false);
 
   const history = useHistory();
 
@@ -140,7 +133,7 @@ const PostALink: React.FC = () => {
             type: "Course",
             expiryDate: new Date(),
             description: "",
-            title: ""
+            title: "",
           }}
           onSubmit={async (
             values: IFormValues,
@@ -157,7 +150,7 @@ const PostALink: React.FC = () => {
             };
 
             await postsStore.addPost(newPost);
-            history.push('/');
+            history.push("/");
           }}
           render={(formikBag) => (
             <Form style={{ width: "100%" }}>
@@ -175,7 +168,7 @@ const PostALink: React.FC = () => {
                 margin="normal"
                 variant="outlined"
                 fullWidth={true}
-                name="url"
+                name="link"
                 label="Link"
                 required
                 key="url"
@@ -189,18 +182,13 @@ const PostALink: React.FC = () => {
                 variant="outlined"
                 key="type"
               >
-                {
-                  categories.map((category: Category) => {
-                    return (
-                      <MenuItem
-                        value={category.value}
-                        key={category.value}
-                      >
-                        {category.name}
-                      </MenuItem>
-                    );
-                  })
-                }
+                {categories.map((category: Category) => {
+                  return (
+                    <MenuItem value={category.value} key={category.value}>
+                      {category.name}
+                    </MenuItem>
+                  );
+                })}
               </Field>
               <Field
                 id="date"

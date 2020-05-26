@@ -25,6 +25,7 @@
     "emailjs-com": "^2.4.1",
     "firebase": "^7.14.5",
     "formik": "2.1.1",
+    "formik-material-ui": "^2.0.0-beta.1",
     "formik-material-ui-pickers": "^0.0.8",
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.2",
