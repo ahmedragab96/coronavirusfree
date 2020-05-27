@@ -121,9 +121,9 @@ const PostALink: React.FC = () => {
       <Container>
         <Title variant="h1">POST A LINK</Title>
         <Description variant="body1">
-          I have worked in the Design Industry for the past 12 years. Currently,
-          I’m working as Senior Product Designer at N26 creating a flexible and
-          simple experience and shaping a product for more than 4 million users.
+          People need each other the most in times like this, let's
+          spread the knowledge , share useful links and help each other
+          to get the best out of our free time.
         </Description>
         <Formik
           initialValues={{

@@ -78,9 +78,9 @@ const PostSent: React.FC = () => {
             src={Assets.Images.staySafe}
             width="300"
           />
-          <Title variant="h3">Thank you</Title>
+          <Title variant="h3">Thank you for your contribution</Title>
           <Description variant="body1">
-            select why you want report this link?
+            Now our admins will review your link and it will get shared as soon as possible.
           </Description>
           <CustomButton target="_blank" href="https://www.buymeacoffee.com/momenhesham">
             Donate 5$

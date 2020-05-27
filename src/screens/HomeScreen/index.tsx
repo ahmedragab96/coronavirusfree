@@ -1,5 +1,5 @@
 // Packages
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useObserver } from "mobx-react";
 import { Container } from "react-bootstrap";
 import Grid from "@material-ui/core/Grid";
@@ -44,13 +44,13 @@ const HomeScreen: React.FC = () => {
 
   const [searchText, setSearchText] = useState('');
 
-  const handleSearch = async (query: string) => {
-    if (query.length < 3) {
+  const handleSearch = useMemo(() => async () => {
+    if (searchText.length < 3) {
       await postsStore.getPosts();
       return;
     }
-    await postsStore.getPosts({query});
-  };
+    await postsStore.getPosts({query: searchText});
+  }, [searchText]);
 
   useEffect(() => {
     const onMount = async () => {
@@ -81,7 +81,7 @@ const HomeScreen: React.FC = () => {
             onChange={(event: any) => setSearchText(event.target.value)}
             onKeyPress={(event: any) => {
               if (event.key === 'Enter') {
-                handleSearch(searchText);
+                handleSearch();
               }
             }}
           />
@@ -95,6 +95,7 @@ const HomeScreen: React.FC = () => {
                 .replace(/-/g, "/");
               return (
                 <CardPost
+                  key={String(Math.random())}
                   type={post.type}
                   title={post.title}
                   description={post.description}

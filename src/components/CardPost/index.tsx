@@ -12,6 +12,7 @@ interface Props {
   title: string;
   description: string;
   link: string;
+  key: string;
 }
 
 const CardPost: React.FC<Props> = (props: Props) => {
