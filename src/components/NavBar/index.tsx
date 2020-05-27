@@ -9,24 +9,17 @@ import { Button } from "@material-ui/core";
 import HowToReportModal from "components/HowToReportModal";
 
 const Logo = styled.img`
-width: 88px;
+  width: 88px;
 `;
-const LinkStyled = styled(Link)`
-color: black !important;
-&:hover {
-  color: black !important;
-  text-decoration: none;
-}
-`;
+
 const CustomButton = styled(Button)`
-background-color: #8adf92 !important;
-color: black;
-box-shadow: none !important;
-font-family: "FUTURABold" !important;
+  background-color: #8adf92 !important;
+  color: black;
+  box-shadow: none !important;
+  font-family: "FUTURABold" !important;
 `;
 
 const NavBar: React.FC = () => {
-
   return (
     <>
       <Navbar expand="md" bg="white" className="py-4">
