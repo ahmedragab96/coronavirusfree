@@ -16,7 +16,8 @@ export interface Post {
 }
 
 export interface PostsOptions {
-  query: string; 
+  query?: string; 
+  expired?: boolean;
 }
 
 
@@ -40,6 +41,12 @@ class PostsStore {
 
         if (getPostsOptions && getPostsOptions.query) {
           dbQuery = dbQuery.orderBy('title').startAt(getPostsOptions.query).endAt(getPostsOptions.query + '\uf8ff');
+        }
+
+        if (getPostsOptions && getPostsOptions.expired) {
+          dbQuery = dbQuery.where("expiryDate", "<" , new Date().getTime());
+        } else {
+          dbQuery = dbQuery.where("expiryDate", ">" , new Date().getTime());
         }
 
         dbQuery.onSnapshot((snapShot) => {
