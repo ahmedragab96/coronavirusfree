@@ -61,13 +61,24 @@ const StyledTab = withStyles((theme: Theme) =>
       fontWeight: theme.typography.fontWeightRegular,
       fontSize: theme.typography.pxToRem(15),
       marginRight: theme.spacing(1),
-      borderRadius: 100,
+      borderRadius: 0,
       outline: "none",
       width: 100,
-      "&:focus": {
+      backgroundColor: "white",
+      "&:hover": {
+        color: "#8ADF92",
         opacity: 1,
       },
+      "&$selected": {
+        color: "white",
+        fontWeight: theme.typography.fontWeightMedium,
+        backgroundColor: "black",
+      },
+      "&:focus": {
+        color: "#8ADF92",
+      },
     },
+    selected: {},
   })
 )((props: StyledTabProps) => <Tab disableRipple={true} {...props} />);
 
@@ -193,8 +204,8 @@ const HomeScreen: React.FC = () => {
             onChange={handleChange}
             aria-label="styled tabs example"
           >
-            <StyledTab label="All" {...a11yProps(0)} />
-            <StyledTab label="Free" {...a11yProps(1)} />
+            <StyledTab label="Active" {...a11yProps(0)} />
+            <StyledTab label="Expired" {...a11yProps(1)} />
           </StyledTabs>
         </TabsHeader>
         <Container>
@@ -224,7 +235,7 @@ const HomeScreen: React.FC = () => {
             </TabPanel>
             <TabPanel value={value} index={1}>
               <Grid container spacing={3}>
-                  {/* Expired */}
+                {/* Expired */}
               </Grid>{" "}
             </TabPanel>
           </SwipeableViews>
