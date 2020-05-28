@@ -13,13 +13,14 @@ interface Props {
   description: string;
   link: string;
   key: string;
+  id: string;
 }
 
 const CardPost: React.FC<Props> = (props: Props) => {
   return (
     <Grid item md={4} xs={12}>
       <CardHeaderComponent type={props.type} expiryDate={props.expiryDate} />
-      <CardActionsComponent date={props.date} author={props.author} />
+      <CardActionsComponent date={props.date} author={props.author} id={props.id}/>
       <CardBodyComponent
         link={props.link}
         title={props.title}

@@ -2,7 +2,10 @@ import React from "react";
 import { Menu, MenuItem, IconButton } from "@material-ui/core";
 import ReportLinkModal from "../ReportLinkModal";
 
-const CustomMenu: React.FC = () => {
+interface Props {
+  id: string;
+}
+const CustomMenu: React.FC<Props> = (props: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -41,7 +44,7 @@ const CustomMenu: React.FC = () => {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose}>
-          <ReportLinkModal />
+          <ReportLinkModal id={props.id}/>
         </MenuItem>
       </Menu>
     </>

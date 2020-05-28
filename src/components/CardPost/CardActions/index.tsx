@@ -5,6 +5,7 @@ import CustomMenu from "./CustomMenu";
 interface Props {
   author: string;
   date: string;
+  id: string;
 }
 
 const CardActions = styled.div`
@@ -30,7 +31,7 @@ const CardActionsComponent: React.FC<Props> = (props: Props) => {
       <Date>{props.date}</Date>
       <div>
         <Author>{props.author}</Author>
-        <CustomMenu />
+        <CustomMenu id={props.id}/>
       </div>
     </CardActions>
   );

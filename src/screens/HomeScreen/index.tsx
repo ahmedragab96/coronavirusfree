@@ -216,6 +216,7 @@ const HomeScreen: React.FC = () => {
                       author={post.author}
                       date={postDate}
                       expiryDate={post.expiryDate}
+                      id={String(post.id)}
                     />
                   );
                 })}

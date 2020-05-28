@@ -13,6 +13,7 @@ export interface Post {
   link: string;
   verified?: boolean;
   reported?: boolean;
+  id?: string;
 }
 
 export interface PostsOptions {
@@ -51,7 +52,10 @@ class PostsStore {
 
         dbQuery.onSnapshot((snapShot) => {
           this.posts = snapShot.docs.map((doc: any) => {
-            return doc.data();
+            return {
+              ...doc.data(),
+              id: doc.id,
+            };
           });
           this.loadingData = false;
         });
@@ -67,6 +71,20 @@ class PostsStore {
       const db = firebase.firestore();
       const response = await db.collection("posts").add(newPost);
       console.log(response.id);
+      Promise.resolve();
+    } catch (error) {
+      Promise.reject(error);
+    }
+  }
+
+  @action
+  public async reportPost(postId: string, reasons: string[]): Promise<void> {
+    try {
+      const db = firebase.firestore();
+      await db.collection("posts").doc(postId).update({
+        reported: true,
+        reportReasons: reasons,
+      })
       Promise.resolve();
     } catch (error) {
       Promise.reject(error);

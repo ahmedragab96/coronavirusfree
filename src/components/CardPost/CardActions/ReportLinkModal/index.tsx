@@ -29,7 +29,11 @@ const Description = styled(Typography)`
   font-family: "FUTURALight" !important;
 `;
 
-const ReportLinkModal: React.FC = () => {
+interface Props {
+  id: string;
+}
+
+const ReportLinkModal: React.FC<Props> = (props: Props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -69,7 +73,7 @@ const ReportLinkModal: React.FC = () => {
               Select why you want report this link?
             </Description>
             <Divider className="my-3" />
-            <CheckListComponent />
+            <CheckListComponent id={props.id}/>
           </div>
         </Fade>
       </Modal>
