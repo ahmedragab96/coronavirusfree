@@ -44,9 +44,7 @@ const ReportLinkModal: React.FC<Props> = (props: Props) => {
   const handleClose = () => {
     setOpen(false);
   };
-  const onSelect = (selected: string) => {
-    console.log("selected", selected);
-  };
+
   return (
     <div>
       <Button variant="text" onClick={handleOpen}>
@@ -73,7 +71,7 @@ const ReportLinkModal: React.FC<Props> = (props: Props) => {
               Select why you want report this link?
             </Description>
             <Divider className="my-3" />
-            <CheckListComponent id={props.id}/>
+            <CheckListComponent id={props.id} />
           </div>
         </Fade>
       </Modal>

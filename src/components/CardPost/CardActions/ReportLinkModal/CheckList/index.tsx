@@ -4,8 +4,8 @@ import { grey } from "@material-ui/core/colors";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox, { CheckboxProps } from "@material-ui/core/Checkbox";
-import { Button } from "react-bootstrap";
-import clsx from 'clsx';
+import { Button } from "@material-ui/core";
+import clsx from "clsx";
 import RootStore from "stores";
 
 const { postsStore } = RootStore.Stores;
@@ -22,35 +22,38 @@ const GreenCheckbox = withStyles({
 
 const useStyles = makeStyles({
   root: {
-    '&:hover': {
-      backgroundColor: 'transparent',
+    "&:hover": {
+      backgroundColor: "transparent",
     },
   },
   icon: {
-    border: '1px solid #000000',
+    border: "1px solid #000000",
     borderRadius: 0,
     width: 26,
     height: 26,
-    boxShadow: 'inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)',
-    backgroundColor: '#f5f8fa',
-    backgroundImage: 'linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))',
-    '$root.Mui-focusVisible &': {
-      outline: '2px auto rgba(19,124,189,.6)',
+    boxShadow:
+      "inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)",
+    backgroundColor: "#f5f8fa",
+    backgroundImage:
+      "linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))",
+    "$root.Mui-focusVisible &": {
+      outline: "2px auto rgba(19,124,189,.6)",
       outlineOffset: 2,
     },
-    'input:hover ~ &': {
-      backgroundColor: '#ebf1f5',
+    "input:hover ~ &": {
+      backgroundColor: "#ebf1f5",
     },
-    'input:disabled ~ &': {
-      boxShadow: 'none',
-      background: 'rgba(206,217,224,.5)',
+    "input:disabled ~ &": {
+      boxShadow: "none",
+      background: "rgba(206,217,224,.5)",
     },
   },
   checkedIcon: {
-    backgroundColor: '#137cbd',
-    backgroundImage: 'linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))',
-    '&:before': {
-      display: 'block',
+    backgroundColor: "#137cbd",
+    backgroundImage:
+      "linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))",
+    "&:before": {
+      display: "block",
       width: 26,
       height: 26,
       backgroundImage:
@@ -59,91 +62,131 @@ const useStyles = makeStyles({
         "1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z' fill='%23fff'/%3E%3C/svg%3E\")",
       content: '""',
     },
-    'input:hover ~ &': {
-      backgroundColor: '#106ba3',
+    "input:hover ~ &": {
+      backgroundColor: "#106ba3",
     },
   },
 });
 
 const reportReasons = [
-  'Link is wrong.',
-  'Link is abusing for some cultures.',
-  'Link contains inappropriate stuff.',
-  'Link contains violent content.',
-  'Link is expired',
+  "Link is wrong.",
+  "Link is abusing for some cultures.",
+  "Link contains inappropriate stuff.",
+  "Link contains violent content.",
+  "Link is expired",
 ];
 
 interface Props {
   id: string;
 }
+
+const CustomButton = withStyles({
+  root: {
+    boxShadow: "none",
+    fontSize: 18,
+    padding: "12px 24px",
+    border: "1px solid",
+    lineHeight: 1.5,
+    color: "white",
+    backgroundColor: "#000",
+    borderColor: "#000",
+    textTransform: "uppercase",
+    borderRadius: 0,
+    marginTop: 15,
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+    "&:hover": {
+      backgroundColor: "#000",
+      borderColor: "#000",
+      boxShadow: "none",
+    },
+    "&:active": {
+      boxShadow: "none",
+      backgroundColor: "green",
+      borderColor: "green",
+    },
+    "&:focus": {
+      boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
+    },
+  },
+})(Button);
+
 const CheckListComponent: React.FC<Props> = (props: Props) => {
   const classes = useStyles();
   const [state, setState] = React.useState({
     checkboxes: reportReasons.reduce(
       (options: any, option: any) => ({
         ...options,
-        [option]: false
+        [option]: false,
       }),
       {}
-    )});
+    ),
+  });
 
-  const handleCheckboxChange = (changeEvent : React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheckboxChange = (
+    changeEvent: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name } = changeEvent.target;
 
-    setState(prevState => ({
+    setState((prevState) => ({
       checkboxes: {
         ...prevState.checkboxes,
-        [name]: !prevState.checkboxes[name]
-      }
+        [name]: !prevState.checkboxes[name],
+      },
     }));
   };
 
-  const handleFormSubmit = async (formSubmitEvent : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleFormSubmit = async (
+    formSubmitEvent: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     formSubmitEvent.preventDefault();
 
     let reportReasons: string[] = [];
 
     Object.keys(state.checkboxes)
-      .filter(checkbox => state.checkboxes[checkbox])
-      .forEach(checkbox => {
+      .filter((checkbox) => state.checkboxes[checkbox])
+      .forEach((checkbox) => {
         reportReasons.push(checkbox);
-    });
+      });
 
-    await postsStore.reportPost(
-      props.id,
-      reportReasons
-    );
+    await postsStore.reportPost(props.id, reportReasons);
   };
 
   return (
     <React.Fragment>
       <FormGroup>
-            {
-              reportReasons.map((reason: string) => {
-                return (
-                  <FormControlLabel
-                    key={Math.random().toString()}
-                    control={
-                      <GreenCheckbox
-                        key={reason}
-                        checked={state.checkboxes[reason]}
-                        onChange={handleCheckboxChange}
-                        name={reason}
-                        checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
-                        icon={<span className={classes.icon} />}  
-                      />
-                    }
-                    label={reason}
-                  />
-                );
-              })
-            }
-          </FormGroup>
-          <Button
-            onClick={handleFormSubmit}
-          >
-            Report
-          </Button>
+        {reportReasons.map((reason: string) => {
+          return (
+            <FormControlLabel
+              key={Math.random().toString()}
+              control={
+                <GreenCheckbox
+                  key={reason}
+                  checked={state.checkboxes[reason]}
+                  onChange={handleCheckboxChange}
+                  name={reason}
+                  checkedIcon={
+                    <span className={clsx(classes.icon, classes.checkedIcon)} />
+                  }
+                  icon={<span className={classes.icon} />}
+                />
+              }
+              label={reason}
+            />
+          );
+        })}
+      </FormGroup>
+      <CustomButton onClick={handleFormSubmit}>Report</CustomButton>
     </React.Fragment>
   );
 };

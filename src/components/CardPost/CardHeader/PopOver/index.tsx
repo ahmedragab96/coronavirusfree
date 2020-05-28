@@ -16,9 +16,9 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Sepearator = styled.div`
-    width: 60%;
-    height: 6px;
-    background-color: #d4c863;
+  width: 60%;
+  height: 6px;
+  background-color: ${(props) => props.color};
 `;
 
 interface Props {
@@ -48,7 +48,19 @@ const SepearatorPopOver: React.FC<Props> = (props: Props) => {
     let period = Math.round(props.expiryDate - now) / oneDay;
 
     return Number(period.toFixed(0));
-  }
+  };
+  const getSeparatorColor = () => {
+    const theDate = getExpiryPeriod();
+    if (theDate > 0) {
+      if (theDate >= 7) {
+        return "#63D46E";
+      } else {
+        return "#D4C863";
+      }
+    } else {
+      return "#D46363";
+    }
+  };
   return (
     <div>
       <div
@@ -57,7 +69,7 @@ const SepearatorPopOver: React.FC<Props> = (props: Props) => {
         onMouseEnter={handlePopoverOpen}
         onMouseLeave={handlePopoverClose}
       >
-        <Sepearator color="#D4C863" />
+        <Sepearator color={getSeparatorColor()} />
       </div>
 
       <Popover
@@ -79,10 +91,13 @@ const SepearatorPopOver: React.FC<Props> = (props: Props) => {
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        { getExpiryPeriod() > 0
-          ? <Typography>This will expire in { getExpiryPeriod() } days.</Typography>
-          : <Typography>Expired { Math.abs(getExpiryPeriod()) } days ago.</Typography>
-        }
+        {getExpiryPeriod() > 0 ? (
+          <Typography>This will expire in {getExpiryPeriod()} days.</Typography>
+        ) : (
+          <Typography>
+            Expired {Math.abs(getExpiryPeriod())} days ago.
+          </Typography>
+        )}
       </Popover>
     </div>
   );
