@@ -30,39 +30,73 @@ export interface PostsOptions {
 
 class PostsStore {
   @observable posts: Post[] = [];
+  @observable activePosts: Post[] = [];
+  @observable expiredPosts: Post[] = [];
   @observable loadingData = false;
 
   @action
   public async getPosts(getPostsOptions?: PostsOptions): Promise<void> {
     try {
       this.loadingData = true;
-      const db = firebase.firestore();
-      let dbQuery = db.collection("posts")
-        .where("verified", "==", true);
 
-        if (getPostsOptions && getPostsOptions.query) {
-          dbQuery = dbQuery.orderBy('title').startAt(getPostsOptions.query).endAt(getPostsOptions.query + '\uf8ff');
-        }
+      await this.getActivePosts(getPostsOptions);
+      
+      await this.getExpiredPosts(getPostsOptions);
 
-        if (getPostsOptions && getPostsOptions.expired) {
-          dbQuery = dbQuery.where("expiryDate", "<" , new Date().getTime());
-        } else {
-          dbQuery = dbQuery.where("expiryDate", ">" , new Date().getTime());
-        }
-
-        dbQuery.onSnapshot((snapShot) => {
-          this.posts = snapShot.docs.map((doc: any) => {
-            return {
-              ...doc.data(),
-              id: doc.id,
-            };
-          });
-          this.loadingData = false;
-        });
       Promise.resolve();
     } catch (error) {
       Promise.reject(error);
     }
+  }
+
+  private async getActivePosts(getPostsOptions?: PostsOptions): Promise<void> {
+    const db = firebase.firestore();
+    let dbQuery = db.collection("posts")
+      .where("verified", "==", true)
+      .where("expiryDate", ">" , new Date().getTime());
+
+      if (getPostsOptions && getPostsOptions.query) {
+        dbQuery = dbQuery.orderBy('title').startAt(getPostsOptions.query).endAt(getPostsOptions.query + '\uf8ff');
+      }
+
+      dbQuery.onSnapshot((snapShot) => {
+        this.activePosts = snapShot.docs.map((doc: any) => {
+          return {
+            ...doc.data(),
+            id: doc.id,
+          };
+        });
+        this.posts = [
+          ...this.activePosts,
+          ...this.expiredPosts
+        ];
+        this.loadingData = false;
+      });
+  }
+
+  private async getExpiredPosts(getPostsOptions?: PostsOptions): Promise<void> {
+    const db = firebase.firestore();
+    let dbQuery = db.collection("posts")
+      .where("verified", "==", true)
+      .where("expiryDate", "<" , new Date().getTime());
+
+      if (getPostsOptions && getPostsOptions.query) {
+        dbQuery = dbQuery.orderBy('title').startAt(getPostsOptions.query).endAt(getPostsOptions.query + '\uf8ff');
+      }
+
+      dbQuery.onSnapshot((snapShot) => {
+        this.expiredPosts = snapShot.docs.map((doc: any) => {
+          return {
+            ...doc.data(),
+            id: doc.id,
+          };
+        });
+        this.posts = [
+          ...this.activePosts,
+          ...this.expiredPosts
+        ];
+        this.loadingData = false;
+      });
   }
   
   @action
