@@ -194,7 +194,8 @@ const HomeScreen: React.FC = () => {
             aria-label="styled tabs example"
           >
             <StyledTab label="All" {...a11yProps(0)} />
-            <StyledTab label="Free" {...a11yProps(1)} />
+            <StyledTab label="Active" {...a11yProps(1)} />
+            <StyledTab label="Expired" {...a11yProps(2)} />
           </StyledTabs>
         </TabsHeader>
         <Container>
@@ -224,8 +225,49 @@ const HomeScreen: React.FC = () => {
             </TabPanel>
             <TabPanel value={value} index={1}>
               <Grid container spacing={3}>
-                  {/* Expired */}
-              </Grid>{" "}
+                {postsStore.activePosts.map((post: Post) => {
+                  const postDate = new Date(post.date)
+                    .toISOString()
+                    .split("T")[0]
+                    .replace(/-/g, "/");
+                  return (
+                    <CardPost
+                      key={String(Math.random())}
+                      type={post.type}
+                      title={post.title}
+                      description={post.description}
+                      link={post.link}
+                      author={post.author}
+                      date={postDate}
+                      expiryDate={post.expiryDate}
+                      id={String(post.id)}
+                    />
+                  );
+                })}
+              </Grid>
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              <Grid container spacing={3}>
+                {postsStore.expiredPosts.map((post: Post) => {
+                  const postDate = new Date(post.date)
+                    .toISOString()
+                    .split("T")[0]
+                    .replace(/-/g, "/");
+                  return (
+                    <CardPost
+                      key={String(Math.random())}
+                      type={post.type}
+                      title={post.title}
+                      description={post.description}
+                      link={post.link}
+                      author={post.author}
+                      date={postDate}
+                      expiryDate={post.expiryDate}
+                      id={String(post.id)}
+                    />
+                  );
+                })}
+              </Grid>
             </TabPanel>
           </SwipeableViews>
         </Container>
