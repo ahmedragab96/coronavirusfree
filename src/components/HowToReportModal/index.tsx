@@ -31,7 +31,6 @@ const Description = styled(Typography)`
 `;
 const CustomImg = styled.img`
   width: 50vw;
-
 `;
 const HowToReportModal: React.FC = () => {
   const classes = useStyles();
